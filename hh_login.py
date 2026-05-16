@@ -5,14 +5,12 @@ HH.ru Авторизация
 """
 
 import os
-import sys
-import json
 from playwright.sync_api import sync_playwright
 from dotenv import load_dotenv
 
 load_dotenv()
 
-N8N_FILES_DIR = os.getenv("N8N_FILES_DIR", os.path.expanduser("~/.n8n-files"))
+N8N_FILES_DIR = os.getenv("N8N_FILES_DIR") or os.path.expanduser("~/.n8n-files")
 SESSION_FILE = os.path.join(N8N_FILES_DIR, "hh_session.json")
 
 def ensure_dir():
@@ -42,7 +40,6 @@ def login():
         
         input("\n✅ Нажми Enter когда залогинился...")
         
-        # Сохраняем сессию
         context.storage_state(path=SESSION_FILE)
         
         print(f"\n✅ Сессия сохранена в {SESSION_FILE}")
@@ -50,19 +47,5 @@ def login():
         
         browser.close()
 
-def get_cookies():
-    if not os.path.exists(SESSION_FILE):
-        print("❌ Сессия не найдена. Сначала запусти login.")
-        return None
-    
-    with open(SESSION_FILE, 'r') as f:
-        state = json.load(f)
-        cookies = state.get('cookies', [])
-        cookie_str = "; ".join([f"{c['name']}={c['value']}" for c in cookies])
-        return cookie_str
-
 if __name__ == "__main__":
-    if len(sys.argv) > 1 and sys.argv[1] == "--get-cookies":
-        print(get_cookies())
-    else:
-        login()
+    login()

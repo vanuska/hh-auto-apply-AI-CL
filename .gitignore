@@ -1,0 +1,10 @@
+.env
+.venv/
+.idea/
+__pycache__/
+*.pyc
+
+# Personal data and local runtime state
+my/
+data/
+hh_session.json
