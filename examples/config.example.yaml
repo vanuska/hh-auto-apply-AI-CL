@@ -1,0 +1,92 @@
+# Main vacancy selection rules. Usually this is the only block you need to edit.
+vacancies:
+  # 1. Keywords for vacancy title search.
+  # The script searches these words in vacancy names.
+  keywords:
+    - Менеджер ИТ
+    - Руководитель ИТ
+    - IT Manager
+    - Менеджер по ИТ
+    - ИТ Руководитель
+    - Начальник ИТ отдела
+    - Руководитель IT
+    - Руководитель IT-департамента
+    - Руководитель отдела IT
+    - Начальник отдела информационных технологий
+    - Начальник управления информационных технологий
+    - Руководитель IT отдела
+    - Начальник IT отдела
+
+  # Strict local filter after hh.ru search:
+  # keep vacancy only if its title contains at least one of these words.
+  # Leave empty [] to disable.
+  required_title_words_any:
+    - Руководитель
+    - ИТ
+    - Менеджер
+    - Начальник
+    - Manager
+
+  # 2. Do not take vacancies that were already processed successfully.
+  # The history is stored in data/hh_auto_apply.sqlite3.
+  skip_already_applied: true
+
+  # 3. Stop words in vacancy titles.
+  stop_words:
+    - стажер
+    - стажёр
+    - intern
+    - internship
+    - junior
+    - джуниор
+
+  # 4. Only remote vacancies. This passes schedule=remote to hh.ru API
+  # and also filters results by vacancy schedule.
+  remote_only: false
+
+search:
+  # Advanced search settings. Usually do not edit.
+  # 113 = Russia. Use an hh.ru area id if you want a specific region.
+  area: 113
+  per_page: 20
+  max_pages: 1
+  title_only: true
+  order_by: publication_time
+  period_days: 7
+
+filters:
+  skip_has_test: true
+  exclude_company_keywords: []
+  exclude_description_keywords: []
+
+limits:
+  max_applications_per_run: 10
+  delay_between_applications_seconds: 12
+
+application_questions:
+  city: "Москва"
+  salary_expectations: "от 270000 RUB"
+  answers:
+    - keywords:
+        - город
+        - откуда
+        - проживает
+      answer: "Москва"
+    - keywords:
+        - зарплат
+        - зп
+        - ожидания
+        - доход
+        - compensation
+      answer: "от 270000 руб"
+
+letter:
+  language: ru
+  max_chars: 1200
+  portfolio_url: ""
+  prompt_path: my/profile.md
+
+schedule:
+  run_times:
+    - "09:30"
+    - "18:30"
