@@ -137,7 +137,7 @@
 3. Перейдите в эту папку: cd /mnt/c/Users/Ваше_Имя/hh-auto-apply
 4. Теперь все файлы будут доступны как из Windows, так и из Ubuntu
 
-### Шаг 7: Работа с проектом в Ubuntu
+### Шаг 7: Работа с проектом в Ubuntu (можно пропустить и установить зависимости через через setup_tool.py)
 
 1. Перейдите в папку проекта: cd /mnt/c/Users/Ваше_Имя/hh-auto-apply
 2. Создайте виртуальное окружение: python3 -m venv .venv
@@ -167,7 +167,7 @@
 - Ошибка "WSL is not installed": выполните wsl --install в PowerShell от администратора
 - Ошибка "Ubuntu not found in Store": проверьте, что вы в Microsoft Store, а не в обычном поиске
 - Ошибка "Permission denied": используйте sudo или проверьте права на папку
-- Ошибка "python3 not found": установите Python: sudo apt install -y python3 python3-pip
+- Ошибка "python3 not found": установите Python: sudo* apt install -y python3 python3-pip *(для windows можно и без sudo, но если нужен, то включить через Система-Дополнительно-Включить sudo)
 - Медленная работа: WSL использует файловую систему Windows, для ускорения перенесите проект в домашнюю папку Ubuntu: ~/hh-auto-apply
 
 ## Установка и настройка (через setup_tool.py)
