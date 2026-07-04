@@ -1,10 +1,43 @@
-.env
+# Виртуальное окружение
 .venv/
-.idea/
+venv/
+
+# Python кеш
 __pycache__/
 *.pyc
 
-# Personal data and local runtime state
+# IDE
+.vscode/
+.idea/
+.DS_Store
+
+# Переменные окружения (содержат API-ключи!)
+.env
+.env.local
+
+# Личные данные пользователя
 my/
+!my/.gitkeep
+
+# База данных (содержит историю откликов)
 data/
-hh_session.json
+!data/.gitkeep
+
+# Логи
+*.log
+
+# Бэкапы
+*.bak
+*.backup
+
+# Временные файлы
+*.tmp
+*.swp
+*.swo
+
+# Файлы резюме (личные данные)
+*.pdf
+*.doc
+*.docx
+*.rtf
+*.txt
