@@ -181,7 +181,7 @@ Falling back to hh.ru browser search...
 - Перейдите в папку cd hh-auto-apply-AI-CL
 - Установите Puthon: sudo apt install python3.12-venv -y
 - Создайте виртуальное окружение: python3 -m venv .venv
-- Активируйте виртуальное окружение: source .venv/bin/activate ((.venv) USER@ub24:~/hh-auto-apply-AI-CL$)
+- Активируйте виртуальное окружение (.venv): source .venv/bin/activate
 - Перейти к п. Установка и настройка, выполнив в контесте (.venv): python setup_tool.py
 
 ## Установка и настройка (через setup_tool.py)
