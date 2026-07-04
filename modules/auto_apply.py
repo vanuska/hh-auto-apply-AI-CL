@@ -37,6 +37,53 @@ DEFAULT_USER_AGENT = "hh-auto-apply/1.0 (contact: set HH_USER_AGENT in .env)"
 HH_API_TIMEOUT_SECONDS = 45
 HH_API_RETRIES = 3
 
+# Базовые ответы на вопросы работодателя (используются по умолчанию)
+DEFAULT_APPLICATION_ANSWERS = [
+    {
+        "keywords": ["количество проектов", "сколько проектов", "общее количество", "за последние", "2-3 года", "проектов над которыми", "укажите общее количество"],
+        "answer": "Более 15 крупных и средних проектов"
+    },
+    {
+        "keywords": ["предметные области", "области проектов", "над которыми работали", "работали последние", "перечислите предметные", "предметные области проектов"],
+        "answer": "Управление IT-инфраструктурой, автоматизация бизнес-процессов, внедрение и сопровождение 1С и CRM систем, информационная безопасность, бюджетирование и тендеры, миграция IT-сервисов в ЦОД, управление командами до 45+ сотрудников"
+    },
+    {
+        "keywords": ["от старта до завершения", "реализованы вами", "сколько из этих", "реализованы от старта", "реализованы Вами от старта", "старта до завершения"],
+        "answer": "12 проектов реализовано от старта до завершения"
+    },
+    {
+        "keywords": ["каскадным методом", "waterfall", "каскадный метод", "сколько waterfall", "реализованы каскадным"],
+        "answer": "8 проектов реализовано каскадным методом (waterfall)"
+    },
+    {
+        "keywords": ["зарплат", "зп", "ожидания", "доход", "компенсац", "уровень заработной", "ежемесячных доход", "заработной платы", "желаемый уровень"],
+        "answer": "от 270000 руб"
+    },
+    {
+        "keywords": ["город", "откуда", "проживаете", "проживания"],
+        "answer": "Москва"
+    },
+    {
+        "keywords": ["бюджет проекта", "средний бюджет", "человеко-днях", "диапазон", "деньгах"],
+        "answer": "Бюджеты проектов варьировались от 5 до 50 миллионов рублей, средний бюджет составлял 15-20 миллионов рублей"
+    },
+    {
+        "keywords": ["проект", "реализовали", "завершили", "сколько проектов"],
+        "answer": "Более 15 проектов различной сложности и масштаба"
+    },
+    {
+        "keywords": ["методология", "agile", "scrum", "kanban", "гибкая", "каскадная"],
+        "answer": "Использовал как каскадную (waterfall), так и гибкие методологии (Agile, Scrum) в зависимости от требований проекта"
+    },
+    {
+        "keywords": ["команда", "подчиненные", "сотрудники", "управление командой", "руководил"],
+        "answer": "Управлял командами до 45+ сотрудников, включая системных администраторов, разработчиков и специалистов по информационной безопасности"
+    }
+]
+
+DEFAULT_CITY = "Москва"
+DEFAULT_SALARY = "от 270000 руб"
+
 HR_ADAPTATION_RULES = """
 Ты — профессиональный HR-консультант и эксперт по резюме. Твоя задача — адаптировать
 подачу кандидата под конкретную вакансию в сопроводительном письме.
@@ -100,10 +147,10 @@ def test_model_with_sample_letter(llm: LlmConfig, model: str, profile: str) -> t
     """
     try:
         from openai import OpenAI
-        
+
         # Короткий тестовый профиль
         test_profile = profile[:500] if len(profile) > 500 else profile
-        
+
         # Тестовый запрос для генерации письма
         system_prompt = """
 Ты пишешь сопроводительные письма для hh.ru от лица кандидата.
@@ -120,7 +167,7 @@ def test_model_with_sample_letter(llm: LlmConfig, model: str, profile: str) -> t
 
 Напиши короткое сопроводительное письмо (2-3 предложения) на русском языке.
 """
-        
+
         client = OpenAI(
             api_key=llm.api_key,
             base_url=llm.base_url or "https://openrouter.ai/api/v1",
@@ -144,11 +191,11 @@ def test_model_with_sample_letter(llm: LlmConfig, model: str, profile: str) -> t
             return True, raw_text
         else:
             return False, "Пустой ответ"
-            
+
     except Exception as e:
         error_msg = str(e)
         if "429" in error_msg or "rate-limited" in error_msg:
-            return False, f"Ограничение запросов (429)"
+            return False, "Ограничение запросов (429)"
         else:
             return False, f"Ошибка: {e}"
 
@@ -187,11 +234,11 @@ def interactive_model_selection(llm: LlmConfig, profile: str) -> str:
         "qwen/qwen3-coder:free",
         "qwen/qwen3-next-80b-a3b-instruct:free",
     ]
-    
+
     # Если llm.model не "auto", добавляем его первым
     if llm.model != "auto" and llm.model not in models_to_try:
         models_to_try.insert(0, llm.model)
-    
+
     # Убираем дубликаты
     seen = set()
     unique_models = []
@@ -199,43 +246,43 @@ def interactive_model_selection(llm: LlmConfig, profile: str) -> str:
         if model not in seen:
             seen.add(model)
             unique_models.append(model)
-    
+
     print("\n" + "="*70)
-    print("🔍 ИНТЕРАКТИВНЫЙ ВЫБОР МОДЕЛИ")
+    print("ИНТЕРАКТИВНЫЙ ВЫБОР МОДЕЛИ")
     print("="*70)
-    print(f"📋 Всего моделей для тестирования: {len(unique_models)}")
-    
+    print(f"Всего моделей для тестирования: {len(unique_models)}")
+
     for idx, model in enumerate(unique_models, 1):
         print(f"\n[{idx}/{len(unique_models)}] Тестируем модель: {model}")
         print("-" * 50)
-        
-        print("  ⏳ Генерация тестового письма...")
+
+        print("  Генерация тестового письма...")
         success, response_text = test_model_with_sample_letter(llm, model, profile)
-        
+
         if not success:
-            print(f"  ❌ Модель не работает: {response_text}")
+            print(f"  Модель не работает: {response_text}")
             continue
-        
-        print("  ✅ Модель сгенерировала ответ:")
+
+        print("  Модель сгенерировала ответ:")
         print("-" * 50)
         print(response_text)
         print("-" * 50)
-        
+
         # Спрашиваем пользователя
         while True:
             user_input = input(f"\n  Устраивает ли вас эта модель? (Y/N): ").strip().upper()
             if user_input in ['Y', 'N', 'ДА', 'НЕТ']:
                 break
-            print("  ⚠️ Введите Y (Да) или N (Нет)")
-        
+            print("  Введите Y (Да) или N (Нет)")
+
         if user_input in ['Y', 'ДА']:
-            print(f"\n  ✅ Модель {model} выбрана!")
+            print(f"\n  Модель {model} выбрана!")
             return model
         else:
-            print(f"  ⏩ Пропускаем модель {model}, пробуем следующую...")
-    
+            print(f"  Пропускаем модель {model}, пробуем следующую...")
+
     # Если все модели отклонены
-    print("\n  ⚠️ Все модели отклонены. Используем openrouter/free.")
+    print("\n  Все модели отклонены. Используем openrouter/free.")
     return "openrouter/free"
 
 
@@ -298,18 +345,18 @@ def clean_letter_response(text: str) -> str:
     """Очищает ответ от лишних размышлений."""
     if not text:
         return ""
-    
+
     if re.match(r'^[A-Za-z]', text.strip()):
         russian_sentences = re.findall(r'[А-Яа-я][^.!?]*[.!?]', text)
         if russian_sentences:
             return ' '.join(russian_sentences[:5])
-    
+
     lines = text.split('\n')
     cleaned_lines = []
     for line in lines:
         if not re.match(r'^(We need|The user|Let\'s|I need|Here is|I will|We\'ll|Okay,|So,|First,|Now,|Sure,|Alright,)', line.strip()):
             cleaned_lines.append(line)
-    
+
     result = ' '.join(cleaned_lines).strip()
     if not result:
         result = text[:300]
@@ -867,27 +914,27 @@ def build_cover_letter_prompt(
     extra_instructions = str(letter_config.get("extra_instructions") or "").strip()
 
     system = f"{load_cover_letter_prompt_template(config)}\n\n{HR_ADAPTATION_RULES}".strip()
-    user = f"""
-Профиль кандидата:
-{profile[:6000]}
 
-Вакансия:
-Название: {vacancy.title}
-Компания: {vacancy.employer}
-Описание: {vacancy.description[:4000]}
+    # Формируем промпт без незакрытых кавычек
+    user = (
+        "Профиль кандидата:\n"
+        f"{profile[:6000]}\n\n"
+        "Вакансия:\n"
+        f"Название: {vacancy.title}\n"
+        f"Компания: {vacancy.employer}\n"
+        f"Описание: {vacancy.description[:4000]}\n\n"
+        "Требования к письму:\n"
+        "- 3-5 предложений.\n"
+        f"- Максимум {max_chars} символов.\n"
+        "- Не начинай с 'Меня заинтересовала вакансия'.\n"
+        "- Не пиши общими словами 'имею большой опыт', если можно назвать стек, домен или задачу.\n"
+        "- Упомяни только 1-2 наиболее релевантных факта из профиля.\n"
+        "- Если нечего сопоставить, напиши нейтрально и не притягивай опыт.\n\n"
+        "Верни только текст письма, без заголовков и пояснений.\n"
+    )
 
-Требования к письму:
-- 3-5 предложений.
-- Максимум {max_chars} символов.
-- Не начинай с "Меня заинтересовала вакансия".
-- Не пиши общими словами "имею большой опыт", если можно назвать стек, домен или задачу.
-- Упомяни только 1-2 наиболее релевантных факта из профиля.
-- Если нечего сопоставить, напиши нейтрально и не притягивай опыт.
-
-Верни только текст письма, без заголовков и пояснений.
-"""
     if portfolio_url:
-        user += f"\n- Можно аккуратно добавить ссылку на портфолио: {portfolio_url}\n"
+        user += f"- Можно аккуратно добавить ссылку на портфолио: {portfolio_url}\n"
     if extra_instructions:
         user += f"\nДополнительные инструкции:\n{extra_instructions}\n"
 
@@ -910,21 +957,21 @@ def load_llm_config() -> LlmConfig:
         api_key = os.getenv("OPENROUTER_API_KEY") or ""
         if not api_key:
             raise RuntimeError("OPENROUTER_API_KEY is missing for LLM_PROVIDER=openrouter")
-        
+
         model = os.getenv("OPENROUTER_MODEL")
         base_url = "https://openrouter.ai/api/v1"
-        
+
         if not model or model == "auto":
-            print("🤖 Будет запущен интерактивный выбор модели")
+            print("Будет запущен интерактивный выбор модели")
             return LlmConfig(provider=provider, model="auto", api_key=api_key, base_url=base_url)
         else:
-            print(f"📌 Используем модель: {model}")
+            print(f"Используем модель: {model}")
             if test_openrouter_model(api_key, model):
-                print("✅ Модель работает")
+                print("Модель работает")
             else:
-                print(f"⚠️ Модель {model} не отвечает, будет запущен интерактивный выбор...")
+                print(f"Модель {model} не отвечает, будет запущен интерактивный выбор...")
                 return LlmConfig(provider=provider, model="auto", api_key=api_key, base_url=base_url)
-        
+
         return LlmConfig(provider=provider, model=model, api_key=api_key, base_url=base_url)
     else:
         raise RuntimeError(f"LLM_PROVIDER must be 'openai', 'anthropic', 'openrouter', or 'none'. Got: {provider}")
@@ -940,7 +987,7 @@ def generate_cover_letter(
         return normalize_letter_text(generate_fallback_letter(vacancy))
 
     system, user, max_chars = build_cover_letter_prompt(profile, vacancy, config)
-    
+
     if llm.provider == "openai":
         letter = generate_openai_letter(llm, system, user)
     elif llm.provider == "anthropic":
@@ -949,7 +996,7 @@ def generate_cover_letter(
         letter = generate_openrouter_letter(llm, system, user, vacancy)
     else:
         raise RuntimeError(f"Unsupported LLM provider: {llm.provider}")
-    
+
     return normalize_letter_text(letter)[:max_chars].strip()
 
 
@@ -957,7 +1004,7 @@ def generate_fallback_letter(vacancy: Vacancy) -> str:
     """Fallback letter when LLM is disabled."""
     title = vacancy.title.lower()
     focus: list[str] = []
-    
+
     if any(word in title for word in ("lead", "лид", "руковод", "team")):
         focus.append("руководство командами, управление IT-инфраструктурой и внедрение стандартов")
     if any(word in title for word in ("devops", "infra", "инфра", "администр")):
@@ -1098,20 +1145,38 @@ def find_cover_letter_textarea(page: Page):
     return None
 
 
+def get_default_answers() -> list[dict[str, Any]]:
+    """Возвращает стандартные ответы на вопросы работодателя"""
+    return DEFAULT_APPLICATION_ANSWERS.copy()
+
+
 def configured_question_answers(config: dict[str, Any]) -> list[dict[str, Any]]:
+    """Получает ответы на вопросы из конфига или использует значения по умолчанию"""
     question_config = get_nested(config, "application_questions", {})
     answers = list(question_config.get("answers") or [])
     city = str(question_config.get("city") or "").strip()
     salary = str(question_config.get("salary_expectations") or "").strip()
+
+    # Если в конфиге нет ответов, используем стандартные
+    if not answers:
+        answers = get_default_answers()
+
+    # Добавляем город и зарплату если они есть
     if city:
-        answers.append({"keywords": ["город", "откуда", "проживаете"], "answer": city})
+        # Проверяем, есть ли уже ответ с городом
+        has_city = any("город" in " ".join(a.get("keywords", [])) for a in answers)
+        if not has_city:
+            answers.append({"keywords": ["город", "откуда", "проживаете"], "answer": city})
     if salary:
-        answers.append(
-            {
-                "keywords": ["зарплат", "зп", "ожидания", "доход", "компенсац"],
-                "answer": salary,
-            }
-        )
+        has_salary = any("зарплат" in " ".join(a.get("keywords", [])) for a in answers)
+        if not has_salary:
+            answers.append(
+                {
+                    "keywords": ["зарплат", "зп", "ожидания", "доход", "компенсац"],
+                    "answer": salary,
+                }
+            )
+
     return answers
 
 
@@ -1287,16 +1352,16 @@ def run_once(config: dict[str, Any], args: argparse.Namespace) -> None:
     if not state_db.is_absolute():
         state_db = ROOT_DIR / state_db
     conn = init_db(state_db)
-    
+
     # ШАГ 1: Загружаем профиль
     profile = load_profile()
-    
+
     # ШАГ 2: Загружаем LLM конфиг и выбираем модель (ДО поиска вакансий)
     llm = load_llm_config()
-    
+
     # ШАГ 3: Если модель == "auto" - запускаем интерактивный выбор
     if llm.model == "auto":
-        print("🔄 Запуск интерактивного выбора модели...")
+        print("Запуск интерактивного выбора модели...")
         selected_model = interactive_model_selection(llm, profile)
         llm = LlmConfig(
             provider=llm.provider,
@@ -1304,11 +1369,11 @@ def run_once(config: dict[str, Any], args: argparse.Namespace) -> None:
             api_key=llm.api_key,
             base_url=llm.base_url
         )
-        print(f"✅ Финальная модель: {selected_model}")
+        print(f"Финальная модель: {selected_model}")
     elif llm.provider == "openrouter":
-        print(f"🔍 Проверяем модель {llm.model}...")
+        print(f"Проверяем модель {llm.model}...")
         if not test_openrouter_model(llm.api_key, llm.model):
-            print(f"⚠️ Модель {llm.model} не работает, запускаем интерактивный выбор...")
+            print(f"Модель {llm.model} не работает, запускаем интерактивный выбор...")
             selected_model = interactive_model_selection(llm, profile)
             llm = LlmConfig(
                 provider=llm.provider,
@@ -1316,10 +1381,10 @@ def run_once(config: dict[str, Any], args: argparse.Namespace) -> None:
                 api_key=llm.api_key,
                 base_url=llm.base_url
             )
-            print(f"✅ Финальная модель: {selected_model}")
-    
+            print(f"Финальная модель: {selected_model}")
+
     print(f"LLM provider: {llm.provider} ({llm.model})")
-    
+
     # ШАГ 4: Теперь ищем вакансии (после выбора модели)
     vacancies = search_vacancies(config, conn)
     limits = get_nested(config, "limits", {})
@@ -1439,8 +1504,6 @@ def main() -> int:
     if not config_path.is_absolute():
         config_path = ROOT_DIR / config_path
     config = load_yaml(config_path)
-
-    # Убираем проверку load_llm_config() здесь - она будет в run_once
 
     if not args.once and not args.schedule:
         args.once = True
