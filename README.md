@@ -9,6 +9,9 @@
 
 <img width="860" height="838" alt="image" src="https://github.com/user-attachments/assets/2d4154d1-bf5b-453f-98b2-587c1c320dc6" />
 
+<img src="https://github.com/user-attachments/assets/2d4154d1-bf5b-453f-98b2-587c1c320dc6" width="300" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'">
+
+
 ## Основные возможности
 
 1. Автоматический поиск вакансий через браузер, ограниченно через публичный API hh.ru (см. ниже раздел api.HH.ru) с фильтрацией по ключевым словам, стоп-словам, обязательным словам в названии, режиму работы, наличию тестового задания.
