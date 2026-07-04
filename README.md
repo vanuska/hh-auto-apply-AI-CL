@@ -179,7 +179,7 @@ Falling back to hh.ru browser search...
 - Установите GIT: sudo apt install git -y
 - Клонируйте репозиторий в текущую папку: git clone https://github.com/vanuska/hh-auto-apply-AI-CL.git
 - Перейдите в папку cd hh-auto-apply-AI-CL
-- Установите Puthon: sudo apt install python3.12-venv -y
+- Установите Python: sudo apt install python3.12-venv -y
 - Создайте виртуальное окружение: python3 -m venv .venv
 - Активируйте виртуальное окружение (.venv): source .venv/bin/activate
 - Перейти к п. Установка и настройка, выполнив в контесте (.venv): python setup_tool.py
