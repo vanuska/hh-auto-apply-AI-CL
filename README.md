@@ -43,6 +43,12 @@
 
 ## Получение API ключей
 
+### api.HH.ru
+При запуске основного скрипта auto_apply.py, без авторизации HH.ru вы получите ответ: HH API search failed: HH API error 403: {"errors":[{"type":"forbidden"}],"request_id":"*************"}
+Falling back to hh.ru browser search...
+Для авторизации и доступа к API HH изучите https://api.hh.ru/openapi/redoc.
+Это не мешает работе скрипта как в скрытом --headless режиме, так и в графическом.
+
 ### OpenRouter (рекомендуется, бесплатные модели)
 
 1. Откройте браузер и перейдите на сайт https://openrouter.ai
@@ -173,13 +179,14 @@
 ## Установка и настройка (через setup_tool.py)
 
 Запустите python setup_tool.py и последовательно выполняйте шаги:
+(при первом запуске, необходимые файлы будут автоматом скопированы в рабочую директорию рядом с setup_tool.py)
 
 ### Шаг 1: Установка зависимостей
 Устанавливает все Python-пакеты из requirements.txt и браузер Chromium для Playwright. На Linux-сервере без GUI дополнительно устанавливает xvfb для эмуляции графического интерфейса.
 Пакеты: anthropic>=0.70.0, openai>=1.30.0, playwright>=1.45.0, python-dotenv>=1.0.1, pypdf>=4.2.0, PyYAML>=6.0.1, python-docx>=1.2.0.
 
 ### Шаг 2: Создание .env
-Запрашивает email для HH_USER_AGENT, выбор LLM провайдера (OpenRouter/OpenAI/Anthropic), API ключ и модель. Для OpenRouter доступны варианты: auto (автоматический выбор при каждом запуске), openrouter/free, openai/gpt-4o-mini, anthropic/claude-3.5-sonnet или своя модель.
+Запрашивает email для HH_USER_AGENT, выбор LLM провайдера (OpenRouter/OpenAI/Anthropic), API ключ и модель. Для OpenRouter доступны варианты: auto (автоматический выбор при каждом запуске), openrouter/free, openai/gpt-4o-mini, anthropic/claude-3.5-sonnet или своя модель, так же можно запустить check_models.py для проверки доступных моделей.
 Формат .env:
 HH_USER_AGENT=hh-auto-apply/1.0 (ваш_email)
 LLM_PROVIDER=openrouter
@@ -230,7 +237,7 @@ application_questions:
   answers:
     - keywords: ["город", "откуда", "проживает"]
       answer: "Москва"
-    - keywords: ["зарплат", "зп", "ожидания", "доход"]
+    - keywords: ["зарплата", "зп", "ожидания", "доход"]
       answer: "от 270000 руб"
 letter:
   language: ru
