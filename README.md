@@ -175,86 +175,110 @@ Falling back to hh.ru browser search...
 
 ### Клонирование репозитория и работа с проектом в Ubuntu
 
-- Перейдите в папку проекта: cd /mnt/c/Users/Ваше_Имя/
-- Установите GIT: sudo apt install git -y
-- Клонируйте репозиторий в текущую папку: git clone https://github.com/vanuska/hh-auto-apply-AI-CL.git
-- Перейдите в папку cd hh-auto-apply-AI-CL
-- Установите Python: sudo apt install python3.12-venv -y
-- Создайте виртуальное окружение: python3 -m venv .venv
-- Активируйте виртуальное окружение (.venv): source .venv/bin/activate
-- Перейти к п. Установка и настройка, выполнив в контесте (.venv): python setup_tool.py
+- Перейдите в папку проекта:
+  ``` bash
+  cd /mnt/c/Users/Ваше_Имя/
+  ```
+- Установите GIT:
+  ``` bash
+  sudo apt install git -y
+  ```
+- Клонируйте репозиторий в текущую папку:
+  ``` bash
+  git clone https://github.com/vanuska/hh-auto-apply-AI-CL.git
+  ```
+- Перейдите в папку:
+  ``` bash
+  cd hh-auto-apply-AI-CL
+  ```
+- Установите Python:
+  ``` bash
+  sudo apt install python3.12-venv -y
+  ```
+- Создайте виртуальное окружение:
+  ``` bash
+  python3 -m venv .venv
+  ```
+- Активируйте виртуальное окружение (.venv):
+  ``` bash
+  source .venv/bin/activate
+  ```
+- Перейти к п. Установка и настройка, выполнив в контесте (.venv):
+  ``` bash
+  python setup_tool.py
+  ```
 
 ## Установка и настройка (через setup_tool.py)
 
-Запустите python setup_tool.py и последовательно выполняйте шаги:
+Запустите ``` bash python setup_tool.py ``` и последовательно выполняйте шаги:
 
 ### Шаг 1: Установка зависимостей
-Устанавливает все Python-пакеты из requirements.txt и браузер Chromium для Playwright. На Linux-сервере без GUI дополнительно устанавливает xvfb для эмуляции графического интерфейса.
-Пакеты: anthropic>=0.70.0, openai>=1.30.0, playwright>=1.45.0, python-dotenv>=1.0.1, pypdf>=4.2.0, PyYAML>=6.0.1, python-docx>=1.2.0.
+Устанавливает все Python-пакеты из requirements.txt и браузер Chromium для Playwright. <br> На Linux-сервере без GUI дополнительно устанавливает xvfb для эмуляции графического интерфейса.
+<br> Пакеты: <br> anthropic>=0.70.0, <br> openai>=1.30.0, <br> playwright>=1.45.0, <br> python-dotenv>=1.0.1, <br> pypdf>=4.2.0, <br> PyYAML>=6.0.1, <br> python-docx>=1.2.0.
 
 ### Шаг 2: Создание .env
-Запрашивает email для HH_USER_AGENT, выбор LLM провайдера (OpenRouter/OpenAI/Anthropic), API ключ и модель. Для OpenRouter доступны варианты: auto (автоматический выбор при каждом запуске), openrouter/free, openai/gpt-4o-mini, anthropic/claude-3.5-sonnet или своя модель, так же можно запустить check_models.py для проверки доступных моделей.
-Формат .env:
-HH_USER_AGENT=hh-auto-apply/1.0 (ваш_email)
-LLM_PROVIDER=openrouter
-OPENROUTER_API_KEY=sk-or-v1-ваш_ключ
-OPENROUTER_MODEL=auto
-N8N_FILES_DIR=
-HH_CONFIG_PATH=my/config.yaml
-HH_STATE_DB=data/hh_auto_apply.sqlite3
+Запрашивает email для HH_USER_AGENT, выбор LLM провайдера (OpenRouter/OpenAI/Anthropic), API ключ и модель. <br> Для OpenRouter доступны варианты: auto (автоматический выбор при каждом запуске), openrouter/free, openai/gpt-4o-mini, anthropic/claude-3.5-sonnet или своя модель, так же можно запустить check_models.py для проверки доступных моделей.
+<br> Формат .env:
+<br> HH_USER_AGENT=hh-auto-apply/1.0 (ваш_email)
+<br> LLM_PROVIDER=openrouter
+<br> OPENROUTER_API_KEY=sk-or-v1-ваш_ключ
+<br>OPENROUTER_MODEL=auto
+<br> N8N_FILES_DIR=
+<br> HH_CONFIG_PATH=my/config.yaml
+<br> HH_STATE_DB=data/hh_auto_apply.sqlite3
 
 ### Шаг 3: Проверка доступных моделей
 Запускает check_models.py, который показывает все бесплатные модели, доступные на OpenRouter. Модели можно копировать и использовать в .env или в auto_apply.py.
 
 ### Шаг 4: Создание profile.md
-Предлагает 4 способа: вручную (ввод в консоли), извлечение из PDF, из DOCX/DOC, из TXT. При извлечении из файлов автоматически сохраняет текст в my/profile.md. Файлы должны лежать в папке my/. Формат profile.md - Markdown с разделами: # Имя, Email, Telegram, LinkedIn, ## Желаемая роль, ## Ключевые навыки, ## Опыт работы, ## Образование.
+Предлагает 4 способа: вручную (ввод в консоли), извлечение из PDF, из DOCX/DOC, из TXT. <br> При извлечении из файлов автоматически сохраняет текст в my/profile.md. <br> Файлы должны лежать в папке my/. <br> Формат profile.md - Markdown с разделами: # Имя, Email, Telegram, LinkedIn, ## Желаемая роль, ## Ключевые навыки, ## Опыт работы, ## Образование.
 
 ### Шаг 5: Настройка config.yaml
-Создает конфигурационный файл из config.example.yaml или базового шаблона. Запрашивает ключевые слова для поиска (через запятую), город и зарплатные ожидания.
-Полная структура config.yaml:
-vacancies:
-  keywords:
-    - Менеджер ИТ
-    - Руководитель ИТ
-  required_title_words_any:
-    - Руководитель
-    - Менеджер
-  stop_words:
-    - стажер
-    - junior
-  remote_only: false
-  skip_already_applied: true
-search:
-  area: 113
-  per_page: 20
-  max_pages: 1
-  title_only: true
-  order_by: publication_time
-  period_days: 7
-filters:
-  skip_has_test: true
-  exclude_company_keywords: []
-  exclude_description_keywords: []
-limits:
-  max_applications_per_run: 5
-  delay_between_applications_seconds: 12
-application_questions:
-  city: "Москва"
-  salary_expectations: "от 270000 RUB"
-  answers:
-    - keywords: ["город", "откуда", "проживает"]
-      answer: "Москва"
-    - keywords: ["зарплата", "зп", "ожидания", "доход"]
-      answer: "от 270000 руб"
-letter:
-  language: ru
-  max_chars: 1200
-  portfolio_url: ""
-  prompt_path: my/cover_letter_prompt.md
-schedule:
-  run_times:
-    - "09:30"
-    - "18:30"
+<br> Создает конфигурационный файл из config.example.yaml или базового шаблона. Запрашивает ключевые слова для поиска (через запятую), город и зарплатные ожидания.
+<br>Полная структура config.yaml:
+<br>vacancies:
+<br>  keywords:
+<br>    - Менеджер ИТ
+<br>    - Руководитель ИТ
+<br>  required_title_words_any:
+<br>    - Руководитель
+<br>    - Менеджер
+<br>  stop_words:
+<br>    - стажер
+<br>    - junior
+<br>  remote_only: false
+<br>  skip_already_applied: true
+<br>search:
+<br>  area: 113
+<br>  per_page: 20
+<br>  max_pages: 1
+<br>  title_only: true
+<br>  order_by: publication_time
+<br>  period_days: 7
+<br>filters:
+<br>  skip_has_test: true
+<br>  exclude_company_keywords: []
+<br>  exclude_description_keywords: []
+<br>limits:
+<br>  max_applications_per_run: 5
+<br>  delay_between_applications_seconds: 12
+<br>application_questions:
+<br>  city: "Москва"
+<br>  salary_expectations: "от 270000 RUB"
+<br>  answers:
+ <br>   - keywords: ["город", "откуда", "проживает"]
+<br>      answer: "Москва"
+<br>    - keywords: ["зарплата", "зп", "ожидания", "доход"]
+<br>      answer: "от 270000 руб"
+<br>letter:
+<br>  language: ru
+<br>  max_chars: 1200
+<br>  portfolio_url: ""
+<br>  prompt_path: my/cover_letter_prompt.md
+<br>schedule:
+<br>  run_times:
+<br>    - "09:30"
+ <br>   - "18:30"
 
 ### Шаг 6: Настройка шаблона письма
 Создает my/cover_letter_prompt.md с базовым шаблоном для AI. Можно редактировать для изменения стиля, логики и дополнительных инструкций.
@@ -297,18 +321,18 @@ python auto_apply.py --schedule --apply
 
 ## Куда добавлять новые модели для интерактивного выбора
 
-Файл: auto_apply.py
-Функция: interactive_model_selection(llm, profile)
-Список models_to_try (примерно строка 180-200):
-models_to_try = [
-    "openrouter/free",
-    "google/gemma-4-31b-it:free",
-    "google/gemini-2.0-flash-exp:free",
-    "cognitivecomputations/dolphin-mistral-24b-venice-edition:free",
-    "mistralai/mistral-7b-instruct:free",
-    "gpt-oss-20b:free",
-]
-Чтобы добавить новую модель, вставьте её строку в этот список. Чтобы убрать неработающую модель, закомментируйте или удалите строку. Модели можно узнать через check_models.py.
+<br>Файл: auto_apply.py
+<br>Функция: interactive_model_selection(llm, profile)
+<br>Список models_to_try (примерно строка 180-200):
+<br>models_to_try = [
+<br>    "openrouter/free",
+<br>    "google/gemma-4-31b-it:free",
+<br>    "google/gemini-2.0-flash-exp:free",
+<br>    "cognitivecomputations/dolphin-mistral-24b-venice-edition:free",
+<br>    "mistralai/mistral-7b-instruct:free",
+<br>    "gpt-oss-20b:free",
+<br>]
+<br>Чтобы добавить новую модель, вставьте её строку в этот список.<br> Чтобы убрать неработающую модель, закомментируйте или удалите строку. <br>Модели можно узнать через check_models.py.
 
 ## Как зафиксировать модель без интерактивного выбора
 
