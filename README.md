@@ -102,6 +102,8 @@ Falling back to hh.ru browser search...
 
 ### Шаг 1: Включение WSL
 
+#Внимание! В WSL команды используют "python", а в нативной Ubuntu "python3".
+
 1. Откройте меню "Пуск" и введите "PowerShell"
 2. Нажмите правой кнопкой мыши на "Windows PowerShell" и выберите "Запуск от имени администратора"
 3. В открывшемся окне введите команду: wsl --install
@@ -127,7 +129,7 @@ Falling back to hh.ru browser search...
 
 ### Шаг 4: Обновление системы
 
-1. В открывшемся окне Ubuntu введите команду: sudo apt update
+1. В открывшемся окне Ubuntu введите команду: sudo* apt update  *(для windows можно и без sudo, но если нужен, то включить через Система-Дополнительно-Включить sudo)
 2. Введите пароль пользователя (созданный на предыдущем шаге)
 3. Дождитесь завершения обновления списка пакетов
 4. Введите команду: sudo apt upgrade -y
@@ -135,9 +137,9 @@ Falling back to hh.ru browser search...
 
 ### Шаг 5: Установка необходимых пакетов
 
-1. В Ubuntu введите команду: sudo apt install -y python3 python3-pip python3-venv git wget curl
+1. В Ubuntu введите команду: sudo apt install -y python python-pip python-venv git wget curl
 2. Дождитесь завершения установки
-3. Проверьте версию Python: python3 --version (должна быть 3.8 или выше)
+3. Проверьте версию Python: python --version (должна быть 3.8 или выше)
 
 ### Шаг 6: Настройка доступа к проекту из Windows
 
@@ -146,22 +148,12 @@ Falling back to hh.ru browser search...
 3. Перейдите в эту папку: cd /mnt/c/Users/Ваше_Имя/hh-auto-apply
 4. Теперь все файлы будут доступны как из Windows, так и из Ubuntu
 
-### Шаг 7: Работа с проектом в Ubuntu (можно пропустить и установить зависимости через через setup_tool.py)
-
-1. Перейдите в папку проекта: cd /mnt/c/Users/Ваше_Имя/hh-auto-apply
-2. Создайте виртуальное окружение: python3 -m venv .venv
-3. Активируйте виртуальное окружение: source .venv/bin/activate
-4. Установите зависимости: pip install -r requirements.txt
-5. Установите браузер Playwright: playwright install chromium
-6. Запустите установщик: python3 setup_tool.py
-7. Следуйте инструкциям в меню установщика
-
-### Шаг 8: Запуск в фоновом режиме (опционально)
+### Шаг 7: Запуск в фоновом режиме (опционально)
 
 1. Для работы в фоне используйте screen или tmux
 2. Установите screen: sudo apt install -y screen
 3. Запустите screen: screen
-4. В screen выполните: python3 auto_apply.py --schedule --apply
+4. В screen выполните: python auto_apply.py --schedule --apply
 5. Отключитесь от screen: Ctrl+A, затем D
 6. Для возврата в screen: screen -r
 
@@ -176,8 +168,25 @@ Falling back to hh.ru browser search...
 - Ошибка "WSL is not installed": выполните wsl --install в PowerShell от администратора
 - Ошибка "Ubuntu not found in Store": проверьте, что вы в Microsoft Store, а не в обычном поиске
 - Ошибка "Permission denied": используйте sudo или проверьте права на папку
-- Ошибка "python3 not found": установите Python: sudo* apt install -y python3 python3-pip *(для windows можно и без sudo, но если нужен, то включить через Система-Дополнительно-Включить sudo)
+- Ошибка "python not found": установите Python: sudo* apt install -y python python-pip
 - Медленная работа: WSL использует файловую систему Windows, для ускорения перенесите проект в домашнюю папку Ubuntu: ~/hh-auto-apply
+
+## Установка на Ubuntu
+
+### Клонирование репозитория и работа с проектом в Ubuntu
+
+- Перейдите в папку проекта: cd /mnt/c/Users/Ваше_Имя/hh-auto-apply
+- Клонируйте репозиторий в текущую папку: git clone https://github.com/vanuska/hh-auto-apply-AI-CL.git .
+
+(Точка в конце означает "клонировать в текущую папку", если вы не создавали отдельную папку)
+
+Или если вы создали папку отдельно: git clone https://github.com/vanuska/hh-auto-apply-AI-CL.git
+
+(Тогда все файлы будут в папке hh-auto-apply-AI-CL, перейдите в нее: cd hh-auto-apply-AI-CL)
+
+- Создайте виртуальное окружение: python3 -m venv .venv
+- Активируйте виртуальное окружение: source .venv/bin/activate
+- Перейти к Установка и настройка (через setup_tool.py)
 
 ## Установка и настройка (через setup_tool.py)
 
