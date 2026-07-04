@@ -12,4 +12,4 @@ hh-auto-apply-AI-CL/
 │   ├── profile.md         ← ПРОФИЛЬ
 │   └── cover_letter_prompt.md ← ШАБЛОН ПИСЬМА
 ├── data/
-│   └── hh_auto_apply.sqlite3 ← БАЗА ДАННЫХ
+    └── hh_auto_apply.sqlite3 ← БАЗА ДАННЫХ
