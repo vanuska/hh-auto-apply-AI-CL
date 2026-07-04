@@ -84,7 +84,7 @@ class SetupTool:
         print("  6. Настройка cover_letter_prompt.md")
         print("  7. Авторизация на HH.ru")
         print("  8. Тест генерации письма")
-        print("  9. Очистка базы данных")
+        print("  9. Работа с базой данных")
         print("  10. Запуск auto_apply.py")
         print("  11. Выход")
         print()
