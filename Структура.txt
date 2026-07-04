@@ -1,0 +1,21 @@
+hh-auto-apply-AI-CL/
+├── auto_apply.py          ← ГЛАВНЫЙ СКРИПТ (используется)
+├── setup_tool.py          ← УСТАНОВЩИК (используется)
+├── hh_login.py            ← АВТОРИЗАЦИЯ (используется)
+├── test_letter.py         ← ТЕСТ (используется)
+├── check_models.py        ← ПРОВЕРКА МОДЕЛЕЙ (используется)
+├── clean_db.py            ← УПРАВЛЕНИЕ БД (используется)
+├── requirements.txt       ← ЗАВИСИМОСТИ (используется)
+├── .env                   ← НАСТРОЙКИ (используется)
+├── my/
+│   ├── config.yaml        ← КОНФИГ (используется)
+│   ├── profile.md         ← ПРОФИЛЬ (используется)
+│   └── cover_letter_prompt.md ← ШАБЛОН ПИСЬМА (используется)
+├── data/
+│   └── hh_auto_apply.sqlite3 ← БАЗА ДАННЫХ (используется)
+└── modules/               ← НЕ ИСПОЛЬЗУЕТСЯ (можно удалить)
+    ├── __init__.py
+    ├── env_setup.py
+    ├── config_setup.py
+    ├── profile_creator.py
+    └── menu.py
