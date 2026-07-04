@@ -47,10 +47,10 @@
 ## Получение API ключей
 
 ### api.HH.ru
-При запуске основного скрипта auto_apply.py, без авторизации HH.ru вы получите ответ: HH API search failed: HH API error 403: {"errors":[{"type":"forbidden"}],"request_id":"*************"}
+- При запуске основного скрипта auto_apply.py, без авторизации HH.ru вы получите ответ: HH API search failed: HH API error 403: {"errors":[{"type":"forbidden"}],"request_id":"*************"}
 Falling back to hh.ru browser search...
-Для авторизации и доступа к API HH изучите https://api.hh.ru/openapi/redoc.
-Это не мешает работе скрипта как в скрытом --headless режиме, так и в графическом.
+- Для авторизации и доступа к API HH изучите https://api.hh.ru/openapi/redoc.
+- Это не мешает работе скрипта как в скрытом --headless режиме, так и в графическом.
 
 ### OpenRouter (рекомендуется, бесплатные модели)
 
