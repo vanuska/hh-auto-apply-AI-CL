@@ -175,15 +175,10 @@ Falling back to hh.ru browser search...
 
 ### Клонирование репозитория и работа с проектом в Ubuntu
 
-- Перейдите в папку проекта: cd /mnt/c/Users/Ваше_Имя/hh-auto-apply
-- Клонируйте репозиторий в текущую папку: git clone https://github.com/vanuska/hh-auto-apply-AI-CL.git .
-
-(Точка в конце означает "клонировать в текущую папку", если вы не создавали отдельную папку)
-
-Или если вы создали папку отдельно: git clone https://github.com/vanuska/hh-auto-apply-AI-CL.git
-
-(Тогда все файлы будут в папке hh-auto-apply-AI-CL, перейдите в нее: cd hh-auto-apply-AI-CL)
-
+- Перейдите в папку проекта: cd /mnt/c/Users/Ваше_Имя/
+- Установите GIT apt install git -y
+- Клонируйте репозиторий в текущую папку: git clone https://github.com/vanuska/hh-auto-apply-AI-CL.git
+- Перейдите в папку cd hh-auto-apply-AI-CL
 - Создайте виртуальное окружение: python3 -m venv .venv
 - Активируйте виртуальное окружение: source .venv/bin/activate
 - Перейти к Установка и настройка (через setup_tool.py)
