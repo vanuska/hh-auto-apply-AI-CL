@@ -969,7 +969,7 @@ search:
 
 limits:
   max_applications_per_run: 5
-  delay_between_applications_seconds: 12
+  delay_between_applications_seconds: 20
 
 application_questions:
   city: "Москва"
