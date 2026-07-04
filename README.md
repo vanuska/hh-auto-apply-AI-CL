@@ -288,6 +288,14 @@ python auto_apply.py [--once] [--schedule] [--apply] [--headless] [--max-applica
 - --config PATH - путь к config.yaml (по умолчанию my/config.yaml)
 - --state-db PATH - путь к SQLite базе (по умолчанию data/hh_auto_apply.sqlite3)
 
+Примеры:
+# Запуск с отправкой откликов, браузер в фоне
+python auto_apply.py --schedule --apply --headless
+# Запуск без отправки (только поиск и генерация писем) с видимым браузером
+python auto_apply.py --schedule
+# Запуск с отправкой, браузер видимый
+python auto_apply.py --schedule --apply
+
 ## Куда добавлять новые модели для интерактивного выбора
 
 Файл: auto_apply.py
