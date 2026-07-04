@@ -70,6 +70,8 @@ def show_stats(conn):
     for status, count in stats:
         print(f"  - {status}: {count}")
     print("="*50)
+    
+    return total
 
 
 def clean_database():
@@ -94,6 +96,10 @@ def clean_database():
         conn = sqlite3.connect(db_path)
         cursor = conn.cursor()
         
+        # Получаем количество записей ДО очистки
+        cursor.execute("SELECT COUNT(*) FROM vacancy_runs")
+        total_before = cursor.fetchone()[0]
+        
         show_stats(conn)
         
         print("\nВНИМАНИЕ: Это действие удалит все записи из базы данных!")
@@ -104,16 +110,18 @@ def clean_database():
             conn.close()
             return False
         
+        # Очищаем таблицу
         cursor.execute("DELETE FROM vacancy_runs")
         conn.commit()
         
+        # Получаем количество записей ПОСЛЕ очистки
         cursor.execute("SELECT COUNT(*) FROM vacancy_runs")
-        count_after = cursor.fetchone()[0]
+        total_after = cursor.fetchone()[0]
         
         conn.close()
         
-        print(f"\nБаза данных очищена! Удалено записей: {total - count_after}")
-        print(f"Записей после очистки: {count_after}")
+        print(f"\nБаза данных очищена! Удалено записей: {total_before - total_after}")
+        print(f"Записей после очистки: {total_after}")
         return True
         
     except sqlite3.Error as e:
