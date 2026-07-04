@@ -102,7 +102,7 @@ Falling back to hh.ru browser search...
 
 ### Шаг 1: Включение WSL
 
-#Внимание! В WSL команды используют "python", а в нативной Ubuntu "python3".
+#Внимание! В WSL команды используют "python", а в нативной Ubuntu "python" или "python3".
 
 1. Откройте меню "Пуск" и введите "PowerShell"
 2. Нажмите правой кнопкой мыши на "Windows PowerShell" и выберите "Запуск от имени администратора"
@@ -176,12 +176,13 @@ Falling back to hh.ru browser search...
 ### Клонирование репозитория и работа с проектом в Ubuntu
 
 - Перейдите в папку проекта: cd /mnt/c/Users/Ваше_Имя/
-- Установите GIT apt install git -y
+- Установите GIT: sudo apt install git -y
 - Клонируйте репозиторий в текущую папку: git clone https://github.com/vanuska/hh-auto-apply-AI-CL.git
 - Перейдите в папку cd hh-auto-apply-AI-CL
+- Установите Puthon: sudo apt install python3.12-venv -y
 - Создайте виртуальное окружение: python3 -m venv .venv
-- Активируйте виртуальное окружение: source .venv/bin/activate
-- Перейти к Установка и настройка (через setup_tool.py)
+- Активируйте виртуальное окружение: source .venv/bin/activate ((.venv) USER@ub24:~/hh-auto-apply-AI-CL$)
+- Перейти к п. Установка и настройка, выполнив в контесте (.venv): python setup_tool.py
 
 ## Установка и настройка (через setup_tool.py)
 
