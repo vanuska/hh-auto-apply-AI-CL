@@ -7,10 +7,9 @@
 Внимание! 
 Так как бесплатные модели могут не корректно работать с русским или вообще, в моменте, не работать, проеряйте работу AI до боевого запуска, через пункты меню: Шаг 1: Установка зависимостей (при первом запуске) -> Шаг 2: Создание .env (при первом запуске, или изменении api или модели) -> Шаг 3: Проверка доступных моделей -> Шаг 8: Тест генерации письма. 
 
-<img width="860" height="838" alt="image" src="https://github.com/user-attachments/assets/2d4154d1-bf5b-453f-98b2-587c1c320dc6" />
-
-<img src="https://github.com/user-attachments/assets/2d4154d1-bf5b-453f-98b2-587c1c320dc6" width="300" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'">
-
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/2d4154d1-bf5b-453f-98b2-587c1c320dc6" width="560" height="538" alt="image" />
+</div>
 
 ## Основные возможности
 
