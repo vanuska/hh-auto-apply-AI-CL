@@ -1,21 +1,15 @@
 hh-auto-apply-AI-CL/
-├── auto_apply.py          ← ГЛАВНЫЙ СКРИПТ (используется)
-├── setup_tool.py          ← УСТАНОВЩИК (используется)
-├── hh_login.py            ← АВТОРИЗАЦИЯ (используется)
-├── test_letter.py         ← ТЕСТ (используется)
-├── check_models.py        ← ПРОВЕРКА МОДЕЛЕЙ (используется)
-├── clean_db.py            ← УПРАВЛЕНИЕ БД (используется)
-├── requirements.txt       ← ЗАВИСИМОСТИ (используется)
-├── .env                   ← НАСТРОЙКИ (используется)
+├── auto_apply.py          ← ГЛАВНЫЙ СКРИПТ
+├── setup_tool.py          ← УСТАНОВЩИК
+├── hh_login.py            ← АВТОРИЗАЦИЯ
+├── test_letter.py         ← ТЕСТ
+├── check_models.py        ← ПРОВЕРКА МОДЕЛЕЙ
+├── clean_db.py            ← УПРАВЛЕНИЕ БД
+├── requirements.txt       ← ЗАВИСИМОСТИ
+├── .env                   ← НАСТРОЙКИ
 ├── my/
-│   ├── config.yaml        ← КОНФИГ (используется)
-│   ├── profile.md         ← ПРОФИЛЬ (используется)
-│   └── cover_letter_prompt.md ← ШАБЛОН ПИСЬМА (используется)
+│   ├── config.yaml        ← КОНФИГ
+│   ├── profile.md         ← ПРОФИЛЬ
+│   └── cover_letter_prompt.md ← ШАБЛОН ПИСЬМА
 ├── data/
-│   └── hh_auto_apply.sqlite3 ← БАЗА ДАННЫХ (используется)
-└── modules/               ← НЕ ИСПОЛЬЗУЕТСЯ (можно удалить)
-    ├── __init__.py
-    ├── env_setup.py
-    ├── config_setup.py
-    ├── profile_creator.py
-    └── menu.py
+│   └── hh_auto_apply.sqlite3 ← БАЗА ДАННЫХ
