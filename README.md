@@ -175,7 +175,7 @@ Falling back to hh.ru browser search...
 - Ошибка "python not found": установите Python: sudo* apt install -y python python-pip
 - Медленная работа: WSL использует файловую систему Windows, для ускорения перенесите проект в домашнюю папку Ubuntu: ~/hh-auto-apply
 
-## Установка на Ubuntu
+## Установка на Ubuntu \ WSL 
 
 ### Клонирование репозитория и работа с проектом в Ubuntu
 
@@ -203,9 +203,13 @@ Falling back to hh.ru browser search...
   ``` bash
   python3 -m venv .venv
   ```
-- Активируйте виртуальное окружение (.venv):
+- Активируйте виртуальное окружение Ubuntu (.venv):
   ``` bash
   source .venv/bin/activate
+  ```
+- Активируйте виртуальное окружение WSL (Windows) (.venv):
+  ``` bash
+  .venv\Scripts\Activate.ps1
   ```
 - Перейти к п. Установка и настройка, выполнив в контесте (.venv):
   ``` bash
