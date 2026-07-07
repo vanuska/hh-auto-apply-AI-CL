@@ -7,8 +7,14 @@
 Внимание! 
 Так как бесплатные модели могут не корректно работать с русским или вообще, в моменте, не работать, проеряйте работу AI до боевого запуска, через пункты меню: Шаг 1 (при первом запуске) -> Шаг 2 (при первом запуске, или изменении api или модели) -> Шаг 3 -> или Шаг 4 или Шаг 8. 
 
+
+
+
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/2d4154d1-bf5b-453f-98b2-587c1c320dc6" width="560" height="538" alt="image" />
+<img width="560" height="538" alt="image" src="https://github.com/user-attachments/assets/ee10da74-6e55-4f86-a94e-2100db626a8c" />
+</div>
+<div align="center">
+<img width="286" height="141" alt="image" src="https://github.com/user-attachments/assets/790db022-0209-43f5-b119-71838e2ade3a" />
 </div>
 
 ## Основные возможности
