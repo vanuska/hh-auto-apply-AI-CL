@@ -13,8 +13,10 @@
 <div align="center">
 <img width="560" height="538" alt="image" src="https://github.com/user-attachments/assets/ee10da74-6e55-4f86-a94e-2100db626a8c" />
 </div>
+<br>
+
 <div align="center">
-<img width="286" height="141" alt="image" src="https://github.com/user-attachments/assets/790db022-0209-43f5-b119-71838e2ade3a" />
+<img width="486" height="241" alt="image" src="https://github.com/user-attachments/assets/6340c1bc-aac4-40e7-b7ad-436b98b0e50f" />
 </div>
 
 ## Основные возможности
