@@ -16,7 +16,7 @@
 <br>
 
 <div align="center">
-<img width="486" height="241" alt="image" src="https://github.com/user-attachments/assets/6340c1bc-aac4-40e7-b7ad-436b98b0e50f" />
+<img width="486" height="241" alt="image" src="https://github.com/user-attachments/assets/5efa9ace-3b1e-4982-9c61-1ae24c983454" />
 </div>
 
 ## Основные возможности
