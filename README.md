@@ -1,4 +1,4 @@
-# HH-AUTO-APPLY-AI-CL: Полное руководство по использованию
+# HH-AUTO-APPLY-AI-CL-TG: Полное руководство по использованию
 
 ## Общее описание
 
@@ -16,7 +16,7 @@
 <br>
 
 <div align="center">
-<img width="486" height="241" alt="image" src="https://github.com/user-attachments/assets/5efa9ace-3b1e-4982-9c61-1ae24c983454" />
+<img width="416" height="211" alt="image" src="https://github.com/user-attachments/assets/5efa9ace-3b1e-4982-9c61-1ae24c983454" />
 </div>
 
 ## Основные возможности
