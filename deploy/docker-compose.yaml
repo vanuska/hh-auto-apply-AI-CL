@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  hh-auto-apply:
+    # Укажите ваш образ. Если вы собрали его локально, используйте:
+    # image: your-dockerhub-username/hh-auto-apply:latest
+    image: your-dockerhub-username/hh-auto-apply:latest
+    container_name: hh-auto-apply
+    restart: unless-stopped
+    environment:
+      # --- Обязательные переменные ---
+      - LLM_PROVIDER=openrouter # или openai, anthropic
+      - OPENROUTER_API_KEY=sk-or-v1-... # Ваш API-ключ
+      - OPENROUTER_MODEL=openrouter/free # Или другая модель
+      - HH_USER_AGENT=hh-auto-apply/1.0 (your-email@example.com)
+      
+      # --- Настройки Telegram (опционально) ---
+      - TELEGRAM_BOT_TOKEN=your_bot_token
+      - TELEGRAM_CHAT_ID=your_chat_id
+      
+      # --- Пути к файлам (можно оставить по умолчанию) ---
+      - HH_CONFIG_PATH=/app/my/config.yaml
+      - HH_STATE_DB=/app/data/hh_auto_apply.sqlite3
+      - N8N_FILES_DIR=/app/.n8n-files
+      
+      # --- Флаг для неинтерактивного режима ---
+      - HH_AUTO_APPLY_NON_INTERACTIVE=1
+    volumes:
+      # Монтируем папку с данными, чтобы они сохранялись между перезапусками
+      - hh_data:/app/data
+      # Монтируем папку с сессией HH.ru
+      - hh_session:/app/.n8n-files
+      # Монтируем папку с конфигами (чтобы можно было править config.yaml извне)
+      - ./my:/app/my
+    # Аргументы командной строки (переопределяют CMD в Dockerfile)
+    # command: ["--schedule", "--apply", "--headless"] # Это уже задано в Dockerfile
+
+volumes:
+  hh_data:
+  hh_session:
