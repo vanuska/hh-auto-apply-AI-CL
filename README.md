@@ -224,10 +224,6 @@ Falling back to hh.ru browser search...
   ``` bash
   .venv\Scripts\Activate.ps1
   ```
-- Перейти к п. Установка и настройка, выполнив в контесте (.venv):
-  ``` bash
-  python setup_tool.py
-  ```
 - При повторном запуске и возникновенни ошибки с одним из модулей, например с ruamel, выполните:   
   ``` bash
   pip install --upgrade ruamel.yaml
@@ -236,6 +232,11 @@ Falling back to hh.ru browser search...
   ``` bash
   pip install --upgrade anthropic openai playwright python-dotenv pypdf PyYAML python-docx ruamel.yaml
   ``` 
+- Перейти к п. Установка и настройка, выполнив в контесте (.venv):
+  ``` bash
+  python setup_tool.py
+  ```
+
 
 ## Установка и настройка (через setup_tool.py)
 
