@@ -199,6 +199,10 @@ Falling back to hh.ru browser search...
   ``` bash
   git clone --branch feature/Telegram --single-branch https://github.com/vanuska/hh-auto-apply-AI-CL.git
   ```
+  или если уже создали папку, то в нее:
+  ``` bash
+  git clone --branch feature/Telegram --single-branch https://github.com/vanuska/hh-auto-apply-AI-CL.git .
+  ``` 
 - Перейдите в папку:
   ``` bash
   cd hh-auto-apply-AI-CL
