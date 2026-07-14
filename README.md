@@ -224,9 +224,13 @@ Falling back to hh.ru browser search...
   ``` bash
   python setup_tool.py
   ```
-* При повторном запуске и возникновенни ошибки с одним из модулей, например с ruamel, выполните:   
+- При повторном запуске и возникновенни ошибки с одним из модулей, например с ruamel, выполните:   
   ``` bash
   pip install --upgrade ruamel.yaml
+  ```
+- или все пакеты
+  ``` bash
+  pip install --upgrade anthropic openai playwright python-dotenv pypdf PyYAML python-docx ruamel.yaml
   ``` 
 
 ## Установка и настройка (через setup_tool.py)
